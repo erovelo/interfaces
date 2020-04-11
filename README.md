@@ -1,9 +1,9 @@
 # Interfaces BCI
 BCI desarrolladas para proyecto terminal UAM-C
 
-En este repositorio encontraras tres carpetas donde cada es una interfaces diferentes:
+En este repositorio encontraras tres proyectos diferentes:
 
-# 1. adquisición (probado en ubuntu 18.04 lts)
+# 1. Aquisición (probado en ubuntu 18.04 lts)
 NOTA: La interfaz gráfica solo funciona para datos sinteticos (simulador), si se usa con la tarjeta Cyton se congela la ventana y se queda en blanco. Usar solo el modo Consola para leer desde la tarjeta Cyton física.
 
 En está carpeta se encuentra dos programas que adquieren datos simulados o reales de la tarjeta Cyton de OpenBCI:
