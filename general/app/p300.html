@@ -1,0 +1,75 @@
+<div id="matrix"></div>
+
+<script>
+
+    // Archivo de etiquetas
+    var labelDataFile = "id_del_sujeto_label.dat";
+    var signalDataFile = "id_del_sujeto_signal.dat";
+    var bffLabels = "";
+    var bffSignal = "";
+
+    // Inicia el protocolo
+    function P300start() {
+
+        bffLabels = "";
+        bffSignal = "";
+
+        //ourboard.streamStart();
+        $("#matrix").p300Stimulation("start", () => {
+            // Esta seccion se manda a llamar cuando se termina de ejecutar el protocolo
+            StopStreaming();
+            // Fin de seccion
+
+            // Guarddando archivo label
+            fs.writeFile(pathfiles + labelDataFile, bffLabels, (err) => {
+                if(err) console.log("error: " + err)
+                else console.log("saved data label file");
+            });
+
+            fs.writeFile(pathfiles + signalDataFile, bffSignal, (err) => {
+                if(err) console.log("error: " + err)
+                else console.log("saved data signal file");
+            });
+        });
+
+    }
+
+    // Detiene el protocolo
+    function P300stop() {
+        //ourboard.streamStop();
+        $("#matrix").p300Stimulation("stop");
+    }
+
+    // Devuelve estado de la corrida
+    var onSampleP300 = function getRunStatus(sample) {
+        var runstatus = $.fn.p300Stimulation.tmp["matrix"];
+
+        var d1 = sample.currentDate;
+        var d2 = runstatus.currentData.currentDate;
+        var seccion = runstatus.currentData.seccion;
+        var diff = Math.abs(d2.getTime() - d1.getTime());
+        var item = runstatus.currentData.elementoIntensificado;
+
+        if(seccion == "intensifica")
+        {
+            bffLabels += runstatus.currentData.elementoIntensificado + "\n";
+            var channels = sample.channels;
+            var numChannels = sample.numChannels;
+            for (let i = 0; i < numChannels; i++) {
+                let c = channels[i].toFixed(8);
+                bffSignal += c + ";";
+            }
+            bffSignal += "\n";
+        }
+
+        console.log({seccion, diff, item});
+    }
+
+    // Cuando renderice la vista del protocolo, creo la matriz
+    $("#matrix").ready(function () {
+	console.log("iniciando estimulacion");
+        $("#matrix").p300Stimulation();
+	$("#matrix").p300Stimulation("start", () => {console.log("Finalizo la matriz")});
+    });
+
+</script>

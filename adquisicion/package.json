@@ -1,0 +1,22 @@
+{
+  "name": "proyectobci-hub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rebuild": "npm rebuild --build-from-source",
+    "electron-rebuild": "electron-rebuild -w opencv4nodejs",
+    "console": "nodejs openbci-console.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "4.0.1",
+    "electron-rebuild": "1.8.5"
+  },
+  "dependencies": {
+    "@openbci/cyton": "2.0.1"
+  }
+}

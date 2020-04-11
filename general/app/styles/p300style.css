@@ -1,0 +1,28 @@
+#ProtocoloP300{
+    background-color: black;
+}
+
+.table {
+    max-width: 750px;
+    width: 90%; 
+    height: 100%;
+    margin: 0 auto; 
+}
+
+.row {
+    float: left; 
+    width: 30%; 
+    width: calc(30% - 15px);
+    border: 15px solid black;
+    padding-bottom: 30%; 
+    margin: 0;
+    background-color:  black;
+    background-image: url('../img/img.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.table .selected{
+    border-color: green;
+}

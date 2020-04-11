@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BCI Dashboard</title>
+
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; };</script>
+
+    <script src="./libs/moment.js"></script>
+    <script src="./libs/Chart.js"></script> 
+    <script src="./libs/chartjs-plugin-streaming.js"></script>
+    <script src="./libs/jquery.js"></script>
+
+    <script src="./scripts/cyton.js"></script>
+    <script src="./scripts/hub.js"></script>
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+
+</head>
+<body>
+
+    <div class="hub-configuration">
+        <h4>Configuración Cyton</h4>
+        <button onclick="HubRefreshPorts();">Refrescar</button>
+        <select id="select-port">
+            <option disabled selected>Seleccione un puerto</option>
+        </select>
+        <button id="btn-connect" onclick="HubConnectOrDisconnect();">Conectar</button>
+
+        <span id="icon-connected" class="icon-red"></span>
+        <span class="icon-txt"> Conectado</span>
+        <span id="icon-streaming" class="icon-red"></span>
+        <span class="icon-txt"> Adquieriendo datos</span>
+        <span id="icon-simulating" class="icon-red"></span>
+        <span class="icon-txt"> Simulando datos</span>
+
+        <br> <br>
+        
+        <button id="btn-start" onclick="HubStartOrStopStreaming();">Iniciar</button>
+    </div>
+
+    <div class="hub-channels">
+        <h4>Canales</h4>
+        <p><span>Canal 1 : </span><span id="channel-0">0</span></p>
+        <p><span>Canal 2 : </span><span id="channel-1">0</span></p>
+        <p><span>Canal 3 : </span><span id="channel-2">0</span></p>
+        <p><span>Canal 4 : </span><span id="channel-3">0</span></p>
+        <p><span>Canal 5 : </span><span id="channel-4">0</span></p>
+        <p><span>Canal 6 : </span><span id="channel-5">0</span></p>
+        <p><span>Canal 7 : </span><span id="channel-6">0</span></p>
+        <p><span>Canal 8 : </span><span id="channel-7">0</span></p>
+        <p><span>Canal 9 : </span><span id="channel-8">0</span></p>
+        <p><span>Canal 10: </span><span id="channel-9">0</span></p>
+        <p><span>Canal 11: </span><span id="channel-10">0</span></p>
+        <p><span>Canal 12: </span><span id="channel-11">0</span></p>
+        <p><span>Canal 13: </span><span id="channel-12">0</span></p>
+        <p><span>Canal 14: </span><span id="channel-13">0</span></p>
+        <p><span>Canal 15: </span><span id="channel-14">0</span></p>
+        <p><span>Canal 16: </span><span id="channel-15">0</span></p>
+    </div>
+
+    <div class="hub-chart">
+        <br><br>
+        <canvas id="canvas-data"></canvas>
+
+        <h4>Guardar Datos</h4>
+        <span>Nombre del sujeto: </span>
+        <input id="input-name" type="text" placeholder="Montserrat">
+        <button onclick="HubStartRecordData();">Iniciar Captura</button>
+        <button onclick="HubStopRecordData();">Detener Captura</button>
+
+    </div>
+</body>
+</html>
+
+<script src="./scripts/graphics.js"></script>
+
+
+<style>
+
+    .hub-configuration {
+        float: left;
+        width: 100%;
+    }
+
+    .hub-channels {
+        float: left;
+        width: 25%;
+    }
+
+    .hub-chart {
+        float: left;
+        width: 75%;
+    }
+
+    .icon-green {
+        margin-left: 10px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        background-color: green;
+    }
+
+    .icon-red {
+        margin-left: 10px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        background-color: red;
+    }
+</style>
