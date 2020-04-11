@@ -15,14 +15,18 @@ Para instalarlos, es necesario tener instalado:
   - npm (se instala con nodejs)
 
 Para instalarlo se usan los siguientes comandos. El primer comando es para ubicarnos dentro de la carpeta adquisicion y el segundo instala las depedencias (carpeta node_modules):
-  cd adquisicion
-  npm install
+
+cd adquisicion
+
+npm install
 
 Para iniciar el modo Grafica, se usa el siguiente comando:
-  npm run start
+
+npm run start
 
 Para iniciar el modo Consola, se usa el siguiente comando:
-  npm run console
+
+npm run console
 
 
 
@@ -33,11 +37,13 @@ En está carpeta se encuentran el programa que muestra la matriz de estimulació
   - npm (se instala con nodejs)
   
 Para instalarlo se usan los siguientes comandos. El primer comando es para ubicarnos dentro de la carpeta general y el segundo instala las depedencias (carpeta node_modules):
-  cd general
-  npm install
+
+cd general
+npm install
   
 Para iniciar se usa el siguiente comando:
-  npm run start
+
+npm run start
 
 # 3. Matriz de estimulación Dinámica (probado en ubuntu 18.04)
 NOTA 1: Es posible que no se pueda correr OpenCV si tiene instalado Anaconda, esto se debe a un problema de referencias. Para este caso aún no se ha encontrado una solución.
@@ -52,5 +58,7 @@ Para instalar OpenCV es necesario leer antes la siguiente pagina de instalación
   https://www.pyimagesearch.com/2018/05/28/ubuntu-18-04-how-to-install-opencv/
   
 Para usarlo es usar lo siguiente
-  cd dinamica
-  python3 deteccion.py scene.jpg
+
+cd dinamica
+
+python3 deteccion.py scene.jpg
