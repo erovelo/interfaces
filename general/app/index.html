@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,10 @@
     <!-- Insert this line above script imports  -->
     <script>if (typeof module === 'object') { window.module = module; module = undefined; };</script>
 
-    <script src="../jquery.js"></script> <!--jQuery-->
+    <script src="../jquery.js"></script>
+    <script src="../pictarea.min.js"></script>
+
+    <!--jQuery-->
     <script src="scripts/openbci.js"></script> <!-- Funciones para trabajar con Cyton -->
     <script src="scripts/p300Stimulation.js"></script> <!-- Funciones para iniciar el protocolo P300 -->
 
@@ -21,18 +25,123 @@
 
 
 </head>
+
 <body style="background-color:black;">
 
     <script>
-        $(function(){
+        $(function () {
             $("#ProtocoloP300").load("p300.html");
         });
     </script>
 
+    <div id="Menu" style="color: white; float: left; width: 800px;">
+        <div class="menu-server" style="float: left; width: 100%;">
+            <p style="color: limegreen;"></p>
+        </div>
+
+        <div class="menu-content" style="float: left; width: 250px;">
+            <h3>En Linea</h3>
+            <input type="radio" name="mode" id="radioOnline" value="online" />
+            <label for="radioOnline">En Línea</label> <br>
+
+            <h3>Fuera de Línea</h3>
+            <input type="radio" name="mode" id="radioEtiquetado" value="etiquetado" />
+            <label for="radioEtiquetado">Adquisición y Etiquetado</label><br>
+
+            <input type="radio" name="mode" id="radioCalibracion" value="calibracion" />
+            <label for="radioCalibracion">Calibración</label><br>
+
+            <input type="radio" name="mode" id="radioClasificacion" value="clasificacion" />
+            <label for="radioClasificacion">Clasificación</label><br>
+        </div>
+
+        <div class="menu-parameters" style="float: left; width: 400px;">
+            <h3>Parametros</h3>
+            <span>ID Sujeto: </span> <input type="text" /> <br><br>
+            <span># Intentos: </span> <input type="number" /> <br><br>
+            <span>Canales: </span> <br>
+            <input type="radio" name="channels" id="radioChannels8" value="8" />
+            <label for="radioChannels8">8 canales</label><br>
+            <input type="radio" name="channels" id="radioChannels16" value="16" />
+            <label for="radioChannels16">16 canales</label><br>
+        </div>
+
+        <div class="menu-mapa" style="float: left; width: 100%; margin-top: 50px;">
+            <img src="resources/EggMap.png" width="500" height="450" id="img-eeg" usemap="#map-eeg"
+                style="background-color: #fff;" />
+            <map name="map-eeg">
+                <area shape="circle" coords="50,50,20" alt="B1" target="1" />
+            </map>
+        </div>
+    </div>
+
     <!-- Vista Protocolo P300 (Eric) -->
-    <div id="ProtocoloP300">
+    <div id="ProtocoloP300" hidden>
     </div>
     <!-- Vista Protocolo P300 (Eric) -->
 
 </body>
+
+<script>
+    $(document).ready(function () {
+        var udp = require('dgram');
+
+        var server = udp.createSocket('udp4');
+
+        // En caso de error
+        server.on('error', (err) => {
+            console.error("Error:", err);
+            server.close();
+            process.exit();
+        })
+
+        // En caso de que 
+        server.on('listening', function () {
+            var address = server.address();
+            var port = address.port;
+            var family = address.family;
+            var ipaddr = address.address;
+            $(".menu-server > p").text("Escuchando puerto: " + port);
+            console.log('Server is listening at port ' + port);
+            console.log('Server ip :' + ipaddr);
+            console.log('Server is IP4/IP6 : ' + family);
+        });
+
+
+        // Se llama cuando llega un nuevo datagram msg
+        server.on('message', function (msg, info) {
+            console.log('Data received from client : ' + msg.toString());
+            console.log('Received %d bytes from %s:%d\n', msg.length, info.address, info.port);
+        });
+
+        server.bind();
+
+
+        // MAP EEG
+        $('#img-eeg').pictarea({
+            normal: {
+                fillStyle: 'rgba(255,0,0,.4)',
+                strokeStyle: 'rgba(255,0,0,.8)',
+                lineWidth: 1
+            },
+            hover: {
+                fillStyle: 'rgba(0,0,255,.6)',
+                strokeStyle: '#fff',
+                lineWidth: 2,
+                shadowColor: '#fff',
+                shadowBlur: 10
+            },
+            active: {
+                fillStyle: 'rgba(255,255,255,.8)',
+                strokeStyle: '#f00',
+                lineWidth: 2
+            },
+            disabled: {
+                fillStyle: 'rgba(0,0,0,.4)',
+                strokeStyle: 'transparent'
+            }
+        });
+    })
+</script>
+
 </html>

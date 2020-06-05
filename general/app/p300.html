@@ -67,9 +67,9 @@
 
     // Cuando renderice la vista del protocolo, creo la matriz
     $("#matrix").ready(function () {
-	console.log("iniciando estimulacion");
-        $("#matrix").p300Stimulation();
-	$("#matrix").p300Stimulation("start", () => {console.log("Finalizo la matriz")});
+	    console.log("iniciando estimulacion");
+        $("#matrix").p300Stimulation(); //
+	    //$("#matrix").p300Stimulation("start", () => {console.log("Finalizo la matriz")});
     });
 
 </script>
