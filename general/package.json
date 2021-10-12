@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/erovelo/ProyectoBCI#readme",
   "devDependencies": {
-    "electron": "4.0.1",
+    "electron": "11.5.0",
     "electron-rebuild": "^1.8.5"
   },
   "dependencies": {
